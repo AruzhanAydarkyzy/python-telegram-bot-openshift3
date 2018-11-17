@@ -11,11 +11,11 @@ logger = logging.getLogger(__name__)
 TOKEN = '629052179:AAG7BVsvhW0B3pt1EGP7PTj4mbXOOvVx4NM'
 
 
-def start(bot, update):
+def open(bot, update):
     """Send a message when the command /start is issued."""
     """update.message.reply_text('Welcome to the Test Bot! I will reply you what you will write me.')"""
     bot.send_message(chat_id=update.message.chat_id,
-                     text='<b>KAZGUU site</b>,<a href="http://kazguu.kz/ru/">KAZGUU</a>', parse_mode=ParseMode.HTML)
+                     text='<b>Библиотека КАЗГЮУ </b>,<a href="http://kazguu.kz/ru/">Библиотека</a>', parse_mode=ParseMode.HTML)
 
 
 def help(bot, update):
@@ -39,34 +39,11 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-class arr:
 
-    def __init__(self, num, random_num=random.randint(1, 100)):
-        self.random_num = random_num
-        self.num = num
-
-    def checking(self, bot, update):
-        try:
-            if self.random_num == self.num:
-                ar = 'Вы выиграли!'
-            elif self.random_num > self.num:
-                ar = 'Ваше число меньше моего. Попробуйте еще раз :)'
-            elif self.random_num < self.num:
-                ar = 'Ваше число больше моего. Попробуйте еще раз :)'
-            # ar = int(num) * 370
-        except (NameError, SyntaxError, ValueError):
-            ar = "Введите целое число"
-        bot.send_message(chat_id=update.message.chat_id, text=ar)
-
-
-def guessing(bot, update):
-    input_num = int(update.message.text)
-    object_num = arr()
-    object_num.checking(input_num)
-
-
-"""def echo(bot, update):
-    update.message.reply_text('You said:  ' + update.message.text)
+"""def calc(bot, update):
+    num = 
+    result = eval(num)
+    update.message.reply_text('Результат = ', text=result)
 """
 
 """def dolintenge(bot, update, args):
@@ -81,9 +58,6 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
-# Write your handlers here
-
-
 def setup(webhook_url=None):
     """If webhook_url is not passed, run with long-polling."""
     logging.basicConfig(level=logging.WARNING)
@@ -95,14 +69,13 @@ def setup(webhook_url=None):
         updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
         bot = updater.bot
         dp = updater.dispatcher  # Get the dispatcher to register handlers
-        dp.add_handler(CommandHandler("start", start))  # on /start command answer in Telegram
-        dp.add_handler(CommandHandler("help", help))  # on /help command answer in Telegram
+        dp.add_handler(CommandHandler("open", open)) 
+        dp.add_handler(CommandHandler("help", help))
         """dp.add_handler(CommandHandler("dolintenge", dolintenge))"""
         dp.add_handler(CallbackQueryHandler(button))
 
         # on noncommand i.e message - echo the message on Telegram
-        """dp.add_handler(MessageHandler(Filters.text, echo))"""
-        dp.add_handler(MessageHandler(Filters.text, guessing))
+        dp.add_handler(MessageHandler(Filters.text, echo))
 
         # log all errors
         dp.add_error_handler(error)
