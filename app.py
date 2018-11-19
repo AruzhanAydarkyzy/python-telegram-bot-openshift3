@@ -58,39 +58,28 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
-def setup(webhook_url=None):
+def setup():
     """If webhook_url is not passed, run with long-polling."""
     logging.basicConfig(level=logging.WARNING)
-    if webhook_url:
-        bot = Bot(TOKEN)
-        update_queue = Queue()
-        dp = Dispatcher(bot, update_queue)
-    else:
-        updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
-        bot = updater.bot
-        dp = updater.dispatcher  # Get the dispatcher to register handlers
-        dp.add_handler(CommandHandler("open", open)) 
-        dp.add_handler(CommandHandler("help", help))
+    updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
+    bot = updater.bot
+    dp = updater.dispatcher  # Get the dispatcher to register handlers
+    dp.add_handler(CommandHandler("open", open)) 
+    dp.add_handler(CommandHandler("help", help))
         """dp.add_handler(CommandHandler("dolintenge", dolintenge))"""
-        dp.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(CallbackQueryHandler(button))
 
         # on noncommand i.e message - echo the message on Telegram
 
         # log all errors
-        dp.add_error_handler(error)
+     dp.add_error_handler(error)
     # Add your handlers here
-    if webhook_url:
-        bot.set_webhook(webhook_url=webhook_url)
-        thread = Thread(target=dp.start, name='dispatcher')
-        thread.start()
-        return update_queue, bot
-    else:
-        bot.set_webhook()  # Delete webhook
-        updater.start_polling()  # Start the Bot
-        """Run the bot until you press Ctrl-C or the process receives SIGINT,
-        SIGTERM or SIGABRT. This should be used most of the time, since
-        start_polling() is non-blocking and will stop the bot gracefully."""
-        updater.idle()
+     bot.set_webhook()  # Delete webhook
+     updater.start_polling()  # Start the Bot
+     """Run the bot until you press Ctrl-C or the process receives SIGINT,
+     SIGTERM or SIGABRT. This should be used most of the time, since
+     start_polling() is non-blocking and will stop the bot gracefully."""
+     updater.idle()
 
 
 if __name__ == '__main__':
