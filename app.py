@@ -66,7 +66,6 @@ def setup():
     dp = updater.dispatcher  # Get the dispatcher to register handlers
     dp.add_handler(CommandHandler("open", open)) 
     dp.add_handler(CommandHandler("help", help))
-        """dp.add_handler(CommandHandler("dolintenge", dolintenge))"""
     dp.add_handler(CallbackQueryHandler(button))
 
         # on noncommand i.e message - echo the message on Telegram
