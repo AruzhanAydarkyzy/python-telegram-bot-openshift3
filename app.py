@@ -39,20 +39,6 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-
-"""def calc(bot, update):
-    num = 
-    result = eval(num)
-    update.message.reply_text('Результат = ', text=result)
-"""
-
-"""def dolintenge(bot, update, args):
-    dollars = int(args)
-    tenge = dollars * 356
-    update.message.reply_text(text=tenge)
-"""
-
-
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"' % (update, error))
@@ -68,11 +54,10 @@ def setup():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CallbackQueryHandler(button))
 
-        # on noncommand i.e message - echo the message on Telegram
 
-        # log all errors
+     # log all errors
      dp.add_error_handler(error)
-    # Add your handlers here
+     # Add your handlers here
      bot.set_webhook()  # Delete webhook
      updater.start_polling()  # Start the Bot
      """Run the bot until you press Ctrl-C or the process receives SIGINT,
